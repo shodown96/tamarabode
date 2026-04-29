@@ -10,14 +10,18 @@ import Footer from "@/components/custom/Footer";
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <Navbar />
       <HeroSection />
-      <WorkWithMeSection />
-      <ProjectsSection />
-      <TestimonialsSection />
+      <div className="flex flex-col items-center">
+        <div className="max-w-450">
+          <WorkWithMeSection />
+          <ProjectsSection />
+          <TestimonialsSection />
+        </div>
+      </div>
       <MyStandardsSection />
       <Footer />
-    </div>
+    </main>
   );
 }

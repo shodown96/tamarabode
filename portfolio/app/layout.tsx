@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Bebas_Neue } from 'next/font/google'
-import localFont from 'next/font/local'
 import { SmoothScrollProvider } from "@/components/custom/SmoothScrollProvider";
+import type { Metadata } from "next";
+import { Bebas_Neue } from 'next/font/google';
+import localFont from 'next/font/local';
+import "./globals.css";
 
 const bebas = Bebas_Neue({
   weight: '400',
@@ -37,9 +37,27 @@ const satoshi = localFont({
   variable: '--font-satoshi',
 })
 
+const originURL = "www.tamarabode.com"
+const SITE_TITLE = "Tamara | Product Designer"
+const SITE_DESCRIPTION = "Bridging strategy, design, and engineering to deliver meaningful digital experiences. Built By Elijah Soladoye."
+
 export const metadata: Metadata = {
-  title: "Tamara-Bode Idumufinide | Product Designer",
-  description: "Bridging strategy, design, and engineering to deliver meaningful digital experiences. Built By Elijah Soladoye.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    url: originURL,
+    type: 'website',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: `${originURL}/images/opengraph.png`,
+        width: 1400,
+        height: 900,
+        alt: SITE_TITLE,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
