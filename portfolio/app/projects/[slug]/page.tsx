@@ -88,196 +88,202 @@ export default function ProjectDetailPage() {
         <div>
             <Navbar />
 
-            {/* ── Project title ── */}
-            <div className="pt-32 px-9">
-                <h1
-                    className="font-bebas uppercase leading-none"
-                    style={{ fontSize: "clamp(4rem, 9vw, 11rem)" }}
-                >
-                    {PROJECT.title.replace(".", "")}<span className="text-primary">.</span>
-                </h1>
-            </div>
+            <div className="flex flex-col items-center">
+                <div className="max-w-450">
 
-            {/* ── 001 Introduction ── */}
-            <div className="px-9 pt-12 pb-16">
-
-                {/* Meta row: sidebar label | meta fields | empty right */}
-                <div className="grid grid-cols-12 gap-8 mb-10">
-
-                    {/* Sidebar */}
-                    <div className="col-span-12 md:col-span-4">
-                        <SectionLabel id={PROJECT.intro.sectionId} label={PROJECT.intro.sectionLabel} />
-                    </div>
-
-                    {/* Meta fields — Client / Timeline / Year stacked */}
-                    <div className="col-span-12 md:col-span-8 flex flex-col gap-3">
-                        {Object.entries(PROJECT.intro.meta).map(([key, val]) => (
-                            <div key={key} className="grid grid-cols-2 items-baseline border-b border-white/10 pb-3">
-                                <p className="text-grey text-xs capitalize">{key}</p>
-                                <p className="text-white text-sm font-medium text-right">{val}</p>
-                            </div>
-                        ))}
-
-
-                        {/* Headline */}
-                        <div className="pt-12">
-                            <h2
-                                className="text-white font-semibold leading-snug mb-6"
-                                style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
-                            >
-                                {PROJECT.intro.headline}
-                            </h2>
-                            <p className="text-grey text-sm leading-relaxed mb-6 max-w-2xl">
-                                {PROJECT.intro.body}
-                            </p>
-                            {/* Live project link */}
-                            <a
-                                href={PROJECT.intro.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sm text-white flex items-center gap-1 hover:text-primary transition-colors"
-                            >
-                                Live project
-                                {/* Diagonal arrow */}
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            {/* ── Hero image — full-width, light bg panel ── */}
-            <div className="flex items-center justify-center py-16 px-9">
-                <img
-                    src={PROJECT.intro.heroImage}
-                    alt={`${PROJECT.title} hero`}
-                    className="max-h-105 w-auto object-contain bg-white/30"
-                />
-            </div>
-
-            {/* ── 002 Challenges ── */}
-            <div className="px-9 pt-16 pb-12">
-
-                {/* Sidebar + headline row */}
-                <div className="grid grid-cols-12 gap-8 mb-10">
-                    <div className="col-span-12 md:col-span-4">
-                        <SectionLabel id={PROJECT.challenges.sectionId} label={PROJECT.challenges.sectionLabel} />
-                    </div>
-                    <div className="col-span-12 md:col-span-8">
-                        <h2
-                            className="text-white font-semibold leading-snug mb-4"
-                            style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
+                    {/* ── Project title ── */}
+                    <div className="pt-32 px-9">
+                        <h1
+                            className="font-bebas uppercase leading-none"
+                            style={{ fontSize: "clamp(4rem, 9vw, 11rem)" }}
                         >
-                            {PROJECT.challenges.headline}
-                        </h2>
-                        <p className="text-grey text-sm leading-relaxed max-w-2xl">
-                            {PROJECT.challenges.body}
-                        </p>
+                            {PROJECT.title.replace(".", "")}<span className="text-primary">.</span>
+                        </h1>
                     </div>
-                </div>
-            </div>
 
-            {/* Two side-by-side challenge images */}
-            <div className="grid grid-cols-2 gap-px px-9">
-                {PROJECT.challenges.images.map((img, i) => (
-                    <div key={i} className="bg-[#f0f0f0] flex items-center justify-center py-16 px-9">
+                    {/* ── 001 Introduction ── */}
+                    <div className="px-9 pt-12 pb-16">
+
+                        {/* Meta row: sidebar label | meta fields | empty right */}
+                        <div className="grid grid-cols-12 gap-8 mb-10">
+
+                            {/* Sidebar */}
+                            <div className="col-span-12 md:col-span-4">
+                                <SectionLabel id={PROJECT.intro.sectionId} label={PROJECT.intro.sectionLabel} />
+                            </div>
+
+                            {/* Meta fields — Client / Timeline / Year stacked */}
+                            <div className="col-span-12 md:col-span-8 flex flex-col gap-3">
+                                {Object.entries(PROJECT.intro.meta).map(([key, val]) => (
+                                    <div key={key} className="grid grid-cols-2 items-baseline border-b border-white/10 pb-3">
+                                        <p className="text-grey text-xs capitalize">{key}</p>
+                                        <p className="text-white text-sm font-medium text-right">{val}</p>
+                                    </div>
+                                ))}
+
+
+                                {/* Headline */}
+                                <div className="pt-12">
+                                    <h2
+                                        className="text-white font-semibold leading-snug mb-6"
+                                        style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
+                                    >
+                                        {PROJECT.intro.headline}
+                                    </h2>
+                                    <p className="text-grey text-sm leading-relaxed mb-6 max-w-2xl">
+                                        {PROJECT.intro.body}
+                                    </p>
+                                    {/* Live project link */}
+                                    <a
+                                        href={PROJECT.intro.liveUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-white flex items-center gap-1 hover:text-primary transition-colors"
+                                    >
+                                        Live project
+                                        {/* Diagonal arrow */}
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/* ── Hero image — full-width, light bg panel ── */}
+                    <div className="flex items-center justify-center py-16 px-9">
                         <img
-                            src={img.src}
-                            alt={img.alt}
-                            className="max-h-90 w-auto object-contain bg-white/30"
+                            src={PROJECT.intro.heroImage}
+                            alt={`${PROJECT.title} hero`}
+                            className="max-h-105 w-auto object-contain bg-white/30"
                         />
                     </div>
-                ))}
-            </div>
 
-            {/* Full-width challenge image */}
-            <div className="bg-background flex items-center justify-center py-16 px-9 border-t border-white/10">
-                <img
-                    src={PROJECT.challenges.fullImage.src}
-                    alt={PROJECT.challenges.fullImage.alt}
-                    className="max-h-105 w-auto object-contain bg-white/30"
-                />
-            </div>
+                    {/* ── 002 Challenges ── */}
+                    <div className="px-9 pt-16 pb-12">
 
-            {/* ── 003 Results ── */}
-            <div className="px-9 pt-16 pb-12">
-
-                {/* Sidebar + headline row */}
-                <div className="grid grid-cols-12 gap-8 mb-10">
-                    <div className="col-span-12 md:col-span-4">
-                        <SectionLabel id={PROJECT.results.sectionId} label={PROJECT.results.sectionLabel} />
+                        {/* Sidebar + headline row */}
+                        <div className="grid grid-cols-12 gap-8 mb-10">
+                            <div className="col-span-12 md:col-span-4">
+                                <SectionLabel id={PROJECT.challenges.sectionId} label={PROJECT.challenges.sectionLabel} />
+                            </div>
+                            <div className="col-span-12 md:col-span-8">
+                                <h2
+                                    className="text-white font-semibold leading-snug mb-4"
+                                    style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
+                                >
+                                    {PROJECT.challenges.headline}
+                                </h2>
+                                <p className="text-grey text-sm leading-relaxed max-w-2xl">
+                                    {PROJECT.challenges.body}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-span-12 md:col-span-8">
-                        <h2
-                            className="text-white font-semibold leading-snug mb-4"
-                            style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
-                        >
-                            {PROJECT.results.headline}
-                        </h2>
-                        <p className="text-grey text-sm leading-relaxed max-w-2xl">
-                            {PROJECT.results.body}
-                        </p>
+
+                    {/* Two side-by-side challenge images */}
+                    <div className="grid grid-cols-2 gap-px px-9">
+                        {PROJECT.challenges.images.map((img, i) => (
+                            <div key={i} className="bg-[#f0f0f0] flex items-center justify-center py-16 px-9">
+                                <img
+                                    src={img.src}
+                                    alt={img.alt}
+                                    className="max-h-90 w-auto object-contain bg-white/30"
+                                />
+                            </div>
+                        ))}
                     </div>
-                </div>
-            </div>
 
-            {/* Final result image — full-width, light bg */}
-            <div className="flex items-center justify-center py-16 px-9">
-                <img
-                    src={PROJECT.results.finalImage.src}
-                    alt={PROJECT.results.finalImage.alt}
-                    className="max-h-120 w-auto object-contain bg-white/30"
-                />
-            </div>
+                    {/* Full-width challenge image */}
+                    <div className="bg-background flex items-center justify-center py-16 px-9 border-t border-white/10">
+                        <img
+                            src={PROJECT.challenges.fullImage.src}
+                            alt={PROJECT.challenges.fullImage.alt}
+                            className="max-h-105 w-auto object-contain bg-white/30"
+                        />
+                    </div>
 
-            {/* ── More projects ── */}
-            {/*
+                    {/* ── 003 Results ── */}
+                    <div className="px-9 pt-16 pb-12">
+
+                        {/* Sidebar + headline row */}
+                        <div className="grid grid-cols-12 gap-8 mb-10">
+                            <div className="col-span-12 md:col-span-4">
+                                <SectionLabel id={PROJECT.results.sectionId} label={PROJECT.results.sectionLabel} />
+                            </div>
+                            <div className="col-span-12 md:col-span-8">
+                                <h2
+                                    className="text-white font-semibold leading-snug mb-4"
+                                    style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
+                                >
+                                    {PROJECT.results.headline}
+                                </h2>
+                                <p className="text-grey text-sm leading-relaxed max-w-2xl">
+                                    {PROJECT.results.body}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Final result image — full-width, light bg */}
+                    <div className="flex items-center justify-center py-16 px-9">
+                        <img
+                            src={PROJECT.results.finalImage.src}
+                            alt={PROJECT.results.finalImage.alt}
+                            className="max-h-120 w-auto object-contain bg-white/30"
+                        />
+                    </div>
+
+                    {/* ── More projects ── */}
+                    {/*
                 Two-column layout: description left (4 cols), project list right (8 cols).
                 Each list item is year + project name, separated by bottom borders.
                 Hover lifts the title to white.
             */}
-            <div className="px-9 pt-24 pb-20">
+                    <div className="px-9 pt-24 pb-20">
 
-                {/* "More projects." heading — full width, massive */}
-                <h2
-                    className="text-white font-semibold leading-none mb-20 col-span-12"
-                    style={{ fontSize: "clamp(3rem, 7vw, 8rem)" }}
-                >
-                    {MORE_PROJECTS.heading}
-                </h2>
+                        {/* "More projects." heading — full width, massive */}
+                        <h2
+                            className="text-white font-semibold leading-none mb-20 col-span-12"
+                            style={{ fontSize: "clamp(3rem, 7vw, 8rem)" }}
+                        >
+                            {MORE_PROJECTS.heading}
+                        </h2>
 
-                <div className="grid grid-cols-12 gap-8">
+                        <div className="grid grid-cols-12 gap-8">
 
-                    {/* Left — description */}
-                    <div className=" col-span-12 md:col-span-4">
-                        <p className="text-grey text-sm leading-relaxed">{MORE_PROJECTS.description}</p>
-                    </div>
+                            {/* Left — description */}
+                            <div className=" col-span-12 md:col-span-4">
+                                <p className="text-grey text-sm leading-relaxed">{MORE_PROJECTS.description}</p>
+                            </div>
 
-                    {/* Right — project list */}
-                    <div className="col-span-12 md:col-span-8 flex flex-col">
-                        {MORE_PROJECTS.items.map((item, i) => (
-                            <a
-                                key={i}
-                                href={item.href}
-                                className="group grid grid-cols-12 items-center py-5 border-b border-white/10 hover:border-white/30 transition-colors"
-                            >
-                                {/* Year */}
-                                <span className="col-span-2 text-grey text-sm">{item.year}</span>
+                            {/* Right — project list */}
+                            <div className="col-span-12 md:col-span-8 flex flex-col">
+                                {MORE_PROJECTS.items.map((item, i) => (
+                                    <a
+                                        key={i}
+                                        href={item.href}
+                                        className="group grid grid-cols-12 items-center py-5 border-b border-white/10 hover:border-white/30 transition-colors"
+                                    >
+                                        {/* Year */}
+                                        <span className="col-span-2 text-grey text-sm">{item.year}</span>
 
-                                {/* Project name */}
-                                <span className="col-span-10 text-white font-semibold text-xl group-hover:text-primary transition-colors">
-                                    {item.title}
-                                </span>
-                            </a>
-                        ))}
-                        {/* Closing border */}
-                        <div className="border-b border-white/10" />
+                                        {/* Project name */}
+                                        <span className="col-span-10 text-white font-semibold text-xl group-hover:text-primary transition-colors">
+                                            {item.title}
+                                        </span>
+                                    </a>
+                                ))}
+                                {/* Closing border */}
+                                <div className="border-b border-white/10" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <LetsTellAStory />
             <Footer />
         </div>

@@ -1,14 +1,10 @@
 "use client";
 
-import { TOP_BRANDS, PORTFOLIO_ITEMS } from "@/lib/constants";
-import Image from "next/image";
-
-import { useRef, useEffect } from "react";
+import { PORTFOLIO_ITEMS, TOP_BRANDS } from "@/lib/constants";
+import { useEffect, useRef } from "react";
 
 const SECTION_ID = "001";
 const SECTION_LABEL = "Work With Me";
-
-const HEADING = "Let's Work Together.";
 const SUBTEXT =
   "I enjoy collaborating with people who care about what they're building. Whether it's a brand, product, or idea in its early stages, I'm here to help shape it into something meaningful.";
 
