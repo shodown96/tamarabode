@@ -5,7 +5,7 @@ import ProjectsPageClient from "@/components/custom/ProjectsPageClient";
 import { client } from "@/lib/sanity";
 import { PROJECTS_QUERY, type Project } from "@/lib/sanity/queries";
 
-// ── Projects page data
+// Projects page data
 
 const PAGE_HEADER = {
     title: "PROJECTS.",
@@ -16,7 +16,7 @@ const PAGE_HEADER = {
 
 const options = { next: { revalidate: 30 } };
 
-// ── Page
+// Page
 
 export default async function ProjectsPage() {
     const projects = await client.fetch<Project[]>(PROJECTS_QUERY, {}, options);
@@ -25,14 +25,14 @@ export default async function ProjectsPage() {
         <div>
             <Navbar />
 
-            {/* ── Page header ── */}
+            {/* Page header */}
             {/*
                 Two-column header: giant PROJECTS. wordmark left, period label +
                 description right. Matches the asymmetric editorial layout from the design.
             */}
             <div className="pt-32 pb-16 px-9 grid grid-cols-12 items-end max-md:gap-8">
 
-                {/* Left — PROJECTS. wordmark */}
+                {/* Left: PROJECTS. wordmark */}
                 <div className="col-span-12 md:col-span-4">
                     <h1
                         className="font-bebas uppercase leading-none"
@@ -42,7 +42,7 @@ export default async function ProjectsPage() {
                     </h1>
                 </div>
 
-                {/* Right — period label + description */}
+                {/* Right: period label + description */}
                 <div className="col-span-12 md:col-span-8 flex flex-col gap-3 pb-2">
                     <p className="text-grey text-sm font-medium tracking-wide">
                         {PAGE_HEADER.period}

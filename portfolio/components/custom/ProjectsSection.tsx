@@ -27,7 +27,7 @@ export default async function ProjectsSection() {
   return (
     <div className="min-h-screen pt-20 px-9">
 
-      {/* ── Header row ── */}
+      {/* Header row */}
       <div className="grid grid-cols-12 items-start mb-12 max-md:gap-8">
 
         {/* 002 sidebar */}
@@ -45,20 +45,20 @@ export default async function ProjectsSection() {
           </p>
         </div>
 
-          {/* Right description — aligns to far right */}
+          {/* Right description: aligns to far right */}
           <div className="col-span-12 md:col-span-5 pt-3 md:text-right">
           <p className="text-xs text-grey leading-relaxed md:pl-30">{DESCRIPTION}</p>
         </div>
       </div>
 
-      {/* ── Project grid ── */}
+      {/* Project grid */}
       {/*
         Layout: 2-column grid. Rows 1 & 2 are two equal cards side-by-side.
         Row 3: left = project card, right = stat block + CTA button.
       */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
 
-        {/* Cards 1–4: standard project cards */}
+        {/* Cards 1 to 4: standard project cards */}
         {projects.slice(0, 4).map((project) => (
           <ProjectCard key={project._id} project={project} />
         ))}

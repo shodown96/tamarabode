@@ -21,7 +21,7 @@ export default function ProjectsPageClient({ projects }: { projects: Project[] }
 
     return (
         <>
-            {/* ── Filter tabs ── */}
+            {/* Filter tabs */}
             {/*
                 Pill-style filters. Active pill: solid primary bg.
                 Inactive pills: transparent with white text, hover darkens slightly.
@@ -41,7 +41,7 @@ export default function ProjectsPageClient({ projects }: { projects: Project[] }
                 ))}
             </div>
 
-            {/* ── Project grid ── */}
+            {/* Project grid */}
             {/*
                 2-column grid with a 1px gap (achieved via bg-white/10 on the wrapper
                 and bg-background on each cell, so the wrapper colour bleeds as lines).
