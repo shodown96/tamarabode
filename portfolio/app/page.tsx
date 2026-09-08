@@ -1,5 +1,3 @@
-"use client";
-
 import Navbar from "@/components/custom/Navbar";
 import HeroSection from "@/components/custom/HeroSection";
 import WorkWithMeSection from "@/components/custom/WorkWithMeSection";

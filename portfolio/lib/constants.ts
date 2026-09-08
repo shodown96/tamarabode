@@ -16,57 +16,6 @@ export const PORTFOLIO_ITEMS = [
   { name: "HRX" },
 ];
 
-export const PROJECTS = [
-  {
-    id: 1,
-    title: "Lightspeed.",
-    category: "Product Design",
-    year: "/2022",
-    image: "/images/projects/project-1.png",
-    span: "col-span-1",
-  },
-  {
-    id: 2,
-    title: "Powersurge.",
-    category: "Mobile App",
-    year: "/2022",
-    image: "/images/projects/project-2.png",
-    span: "col-span-1",
-  },
-  {
-    id: 3,
-    title: "Lightspeed.",
-    category: "Branding",
-    year: "/2024",
-    image: "/images/projects/project-3.png",
-    span: "col-span-1",
-  },
-  {
-    id: 4,
-    title: "Powersurge.",
-    category: "Engineering",
-    year: "/2022",
-    image: "/images/projects/project-4.png",
-    span: "col-span-1",
-  },
-  {
-    id: 5,
-    title: "Boltshift.",
-    category: "Motion Graphics",
-    year: "/2022",
-    image: "/images/projects/project-5.png",
-    span: "col-span-1",
-  },
-  {
-    id: 6,
-    title: "Eightball.",
-    category: "NoCode Development",
-    categoryLabel: "Development",
-    year: "/2023",
-    image: "/images/projects/project-6.png",
-  },
-];
-
 export const TESTIMONIALS = [
   {
     id: 1,

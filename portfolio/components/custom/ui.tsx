@@ -1,6 +1,8 @@
 "use client";
 
 import { TESTIMONIALS } from "@/lib/constants";
+import { urlFor } from "@/lib/sanity";
+import type { Project } from "@/lib/sanity/queries";
 import { useRouter } from "next/navigation";
 
 // Arrow icon — diagonal up-right
@@ -144,25 +146,23 @@ export function TestimonialCard({
   );
 }
 
-export function ProjectCard({
-  project,
-}: {
-  project: {
-    title: string;
-    category: string;
-    year: string;
-    image: string;
-  };
-}) {
-  const router = useRouter()
+export function ProjectCard({ project }: { project: Project }) {
+  const router = useRouter();
+  const imageUrl = urlFor(project.image)?.width(800).height(600).url();
+
   return (
-    <div className="relative overflow-hidden aspect-4/3 bg-white/5 group cursor-pointer" onClick={() => router.push("/projects/min")}>
+    <div
+      className="relative overflow-hidden aspect-4/3 bg-white/5 group cursor-pointer"
+      onClick={() => router.push(`/projects/${project.slug.current}`)}
+    >
       {/* Background image */}
-      <img
-        src={project.image}
-        alt={project.title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={project.title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      )}
 
       {/* Subtle dark vignette so text always reads */}
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/20" />

@@ -37,11 +37,12 @@ const satoshi = localFont({
   variable: '--font-satoshi',
 })
 
-const originURL = "www.tamarabode.com"
+const originURL = "https://www.tamarabode.com"
 const SITE_TITLE = "Tamara | Product Designer"
 const SITE_DESCRIPTION = "Bridging strategy, design, and engineering to deliver meaningful digital experiences. Built By Elijah Soladoye."
 
 export const metadata: Metadata = {
+  metadataBase: new URL(originURL),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   openGraph: {

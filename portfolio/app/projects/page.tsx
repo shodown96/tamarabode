@@ -1,13 +1,11 @@
-"use client";
-
-import { useState } from "react";
 import Navbar from "@/components/custom/Navbar";
 import Footer from "@/components/custom/Footer";
 import LetsTellAStory from "@/components/custom/LetsTellAStory";
-import { PROJECTS } from "@/lib/constants";
-import { ProjectCard } from "@/components/custom/ui";
+import ProjectsPageClient from "@/components/custom/ProjectsPageClient";
+import { client } from "@/lib/sanity";
+import { PROJECTS_QUERY, type Project } from "@/lib/sanity/queries";
 
-// ── Projects page data 
+// ── Projects page data
 
 const PAGE_HEADER = {
     title: "PROJECTS.",
@@ -16,24 +14,12 @@ const PAGE_HEADER = {
         "Success stories that showcase how smart automation drives real business value, competitive advantage, and lasting transformation.",
 };
 
-const FILTER_CATEGORIES = [
-    "All",
-    "Branding",
-    "Design",
-    "Motion Graphics",
-    "NoCode Development",
-];
-
+const options = { next: { revalidate: 30 } };
 
 // ── Page
 
-export default function ProjectsPage() {
-    const [activeFilter, setActiveFilter] = useState("All");
-
-    const filtered =
-        activeFilter === "All"
-            ? PROJECTS
-            : PROJECTS.filter((p) => p.category === activeFilter);
+export default async function ProjectsPage() {
+    const projects = await client.fetch<Project[]>(PROJECTS_QUERY, {}, options);
 
     return (
         <div>
@@ -67,45 +53,7 @@ export default function ProjectsPage() {
                 </div>
             </div>
 
-            {/* ── Filter tabs ── */}
-            {/*
-                Pill-style filters. Active pill: solid primary bg.
-                Inactive pills: transparent with white text, hover darkens slightly.
-            */}
-            <div className="px-9 mb-8 flex items-center gap-2 flex-wrap">
-                {FILTER_CATEGORIES.map((cat) => (
-                    <button
-                        key={cat}
-                        onClick={() => setActiveFilter(cat)}
-                        className={`px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${activeFilter === cat
-                            ? "bg-primary text-white"
-                            : "text-white hover:bg-white/10"
-                            }`}
-                    >
-                        {cat}
-                    </button>
-                ))}
-            </div>
-
-            {/* ── Project grid ── */}
-            {/*
-                2-column grid with a 1px gap (achieved via bg-white/10 on the wrapper
-                and bg-background on each cell, so the wrapper colour bleeds as lines).
-                Cards fill the grid naturally in pairs as the filter changes.
-            */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px px-9">
-                {filtered.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                ))}
-
-                {/* If odd number of filtered cards, fill the last cell with an empty placeholder */}
-                {filtered.length % 2 !== 0 && (
-                    <div className="bg-background aspect-video" />
-                )}
-                {!filtered.length ? (
-                    <div className=" text-white font-medium italic" >No projects found</div>
-                ):null}
-            </div>
+            <ProjectsPageClient projects={projects} />
 
             {/* Bottom padding before footer */}
             <div className="h-24" />

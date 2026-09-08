@@ -1,6 +1,6 @@
-"use client";
-
-import { PROJECTS } from "@/lib/constants";
+import Link from "next/link";
+import { client } from "@/lib/sanity";
+import { FEATURED_PROJECTS_QUERY, PROJECTS_QUERY, type Project } from "@/lib/sanity/queries";
 import { ProjectCard } from "./ui";
 
 const SECTION_ID = "002";
@@ -11,15 +11,19 @@ const BYLINE = "TAMARA.";
 const DESCRIPTION =
   "Real creativity. Tangible results. Discover how we've elevated brands like yours through thoughtful design and seamless development.";
 
-const STAT = {
-  count: "70",
-  suffix: "+",
-  description: "projects delivered with excellence across multiple industries.",
-};
+const STAT_DESCRIPTION = "projects delivered with excellence across multiple industries.";
 
 const CTA_LABEL = "View all";
 
-export default function ProjectsSection() {
+const options = { next: { revalidate: 30 } };
+
+export default async function ProjectsSection() {
+  const featured = await client.fetch<Project[]>(FEATURED_PROJECTS_QUERY, {}, options);
+  const allProjects = await client.fetch<Project[]>(PROJECTS_QUERY, {}, options);
+
+  // Fall back to the general project list if nothing is marked featured yet.
+  const projects = (featured.length ? featured : allProjects).slice(0, 5);
+
   return (
     <div className="min-h-screen pt-20 px-9">
 
@@ -55,28 +59,31 @@ export default function ProjectsSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
 
         {/* Cards 1–4: standard project cards */}
-        {PROJECTS.slice(0, 4).map((project) => (
-          <ProjectCard key={project.id} project={project} />
+        {projects.slice(0, 4).map((project) => (
+          <ProjectCard key={project._id} project={project} />
         ))}
 
-        {/* Card 5: Boltshift (bottom-left) */}
-        <ProjectCard project={PROJECTS[4]} />
+        {/* Card 5: bottom-left */}
+        {projects[4] && <ProjectCard project={projects[4]} />}
 
         {/* Bottom-right: stat + CTA block */}
         <div className="bg-background flex flex-col justify-between max-md: pt-10 md:p-10">
           {/* Stat */}
           <div className="mb-4">
             <p className="text-8xl font-bold leading-none">
-              {STAT.count}<span className="text-primary text-5xl font-bold">{STAT.suffix}</span>
+              {allProjects.length}<span className="text-primary text-5xl font-bold">+</span>
             </p>
             <p className="text-2xl mt-4 leading-snug">
               <span className="font-bold text-white">projects</span>{" "}
-              <span className="text-grey">{STAT.description}</span>
+              <span className="text-grey">{STAT_DESCRIPTION}</span>
             </p>
           </div>
 
           {/* View all CTA */}
-          <button className="w-full bg-primary hover:bg-primary/90 transition-colors text-white font-semibold py-5 px-8 flex items-center justify-center gap-3 text-sm tracking-wide">
+          <Link
+            href="/projects"
+            className="w-full bg-primary hover:bg-primary/90 transition-colors text-white font-semibold py-5 px-8 flex items-center justify-center gap-3 text-sm tracking-wide"
+          >
             {CTA_LABEL}
             <svg
               width="14"
@@ -93,7 +100,7 @@ export default function ProjectsSection() {
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </Link>
         </div>
 
       </div>

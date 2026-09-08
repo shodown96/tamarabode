@@ -8,6 +8,33 @@ export const PROJECTS_QUERY = `*[
   order,
   title,
   slug,
+  featured,
+  category,
+  year,
+  span,
+  image,
+  logoIcon,
+  client,
+  timeline,
+  liveUrl,
+  intro,
+  challenges,
+  results,
+  images,
+  video,
+  svgAsset
+}`
+
+export const FEATURED_PROJECTS_QUERY = `*[
+  _type == "project"
+  && defined(slug.current)
+  && featured == true
+] | order(order asc) {
+  _id,
+  order,
+  title,
+  slug,
+  featured,
   category,
   year,
   span,
@@ -63,6 +90,7 @@ export type Project = SanityDocument & {
   order: number
   title: string
   slug: { current: string }
+  featured?: boolean
   category: string
   year: string
   span: string
