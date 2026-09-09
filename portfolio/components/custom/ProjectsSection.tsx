@@ -24,6 +24,12 @@ export default async function ProjectsSection() {
   // Fall back to the general project list if nothing is marked featured yet.
   const projects = (featured.length ? featured : allProjects).slice(0, 5);
 
+  // Stat shows how many more projects exist beyond the ones shown here.
+  // If every project is already on screen, just show the plain total.
+  const remaining = allProjects.length - projects.length;
+  const showRemaining = remaining > 0;
+  const statCount = showRemaining ? remaining : allProjects.length;
+
   return (
     <div className="min-h-screen pt-20 px-9">
 
@@ -71,7 +77,8 @@ export default async function ProjectsSection() {
           {/* Stat */}
           <div className="mb-4">
             <p className="text-8xl font-bold leading-none">
-              {allProjects.length}<span className="text-primary text-5xl font-bold">+</span>
+              {statCount}
+              {showRemaining && <span className="text-primary text-5xl font-bold">+</span>}
             </p>
             <p className="text-2xl mt-4 leading-snug">
               <span className="font-bold text-white">projects</span>{" "}
