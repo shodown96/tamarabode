@@ -51,7 +51,7 @@ export const projectSchema = defineType({
             type: "string",
             description: "The primary discipline this project falls under.",
             options: {
-                list: ["Product Design", "Branding", "Web App", "Mobile", "Engineering"],
+                list: ["Product Design", "Branding", "Web App", "Mobile", "Engineering", "Motion Graphics"],
             },
             validation: (Rule) => Rule.required(),
         }),
