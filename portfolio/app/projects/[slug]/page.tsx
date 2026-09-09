@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/custom/Navbar";
 import Footer from "@/components/custom/Footer";
 import LetsTellAStory from "@/components/custom/LetsTellAStory";
+import { StaticOverlay } from "@/components/custom/StaticOverlay";
 import { client, urlFor } from "@/lib/sanity";
 import { PROJECT_QUERY, PROJECTS_QUERY, type Project } from "@/lib/sanity/queries";
 
@@ -71,11 +72,12 @@ export default async function ProjectDetailPage({
     const allProjects = await client.fetch<Project[]>(PROJECTS_QUERY, {}, options);
     const moreProjects = allProjects.filter((p) => p.slug.current !== slug).slice(0, 5);
 
-    const heroImageUrl = urlFor(project.image)?.width(1600).height(900).url();
+    const heroVideoUrl = project.video?.asset?.url;
+    const heroImageUrl = urlFor(project.image)?.width(2400).quality(85).auto("format").url();
     const challengeImages = (project.images ?? []).slice(0, 2);
     const challengesFullImage = project.images?.[2];
     const finalImage = project.images?.[3] ?? project.image;
-    const finalImageUrl = urlFor(finalImage)?.width(1600).height(1000).url();
+    const finalImageUrl = urlFor(finalImage)?.width(2400).quality(85).auto("format").url();
 
     return (
         <div>
@@ -158,15 +160,34 @@ export default async function ProjectDetailPage({
 
                     </div>
 
-                    {/* Hero image, full-width, light bg panel */}
-                    {heroImageUrl && (
-                        <div className="flex items-center justify-center py-16 px-9">
-                            <img
-                                src={heroImageUrl}
-                                alt={`${project.title} hero`}
-                                className="max-h-105 w-auto object-contain bg-white/30"
-                            />
+                    {/* Hero media, full width, no boxing */}
+                    {heroVideoUrl ? (
+                        <div className="px-9 py-8">
+                            <div className="relative overflow-hidden">
+                                <video
+                                    src={heroVideoUrl}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="w-full h-auto block"
+                                />
+                                <StaticOverlay />
+                            </div>
                         </div>
+                    ) : (
+                        heroImageUrl && (
+                            <div className="px-9 py-8">
+                                <div className="relative overflow-hidden">
+                                    <img
+                                        src={heroImageUrl}
+                                        alt={`${project.title} hero`}
+                                        className="w-full h-auto block"
+                                    />
+                                    <StaticOverlay />
+                                </div>
+                            </div>
+                        )
                     )}
 
                     {/* 002 Challenges */}
@@ -199,17 +220,18 @@ export default async function ProjectDetailPage({
 
                     {/* Two side-by-side challenge images */}
                     {challengeImages.length > 0 && (
-                        <div className="grid grid-cols-2 gap-px px-9">
+                        <div className="grid grid-cols-2 gap-6 px-9">
                             {challengeImages.map((img, i) => {
-                                const src = urlFor(img)?.width(900).height(700).url();
+                                const src = urlFor(img)?.width(1200).quality(85).auto("format").url();
                                 if (!src) return null;
                                 return (
-                                    <div key={i} className="bg-[#f0f0f0] flex items-center justify-center py-16 px-9">
+                                    <div key={i} className="relative overflow-hidden">
                                         <img
                                             src={src}
                                             alt={img.alt || `${project.title} mockup ${i + 1}`}
-                                            className="max-h-90 w-auto object-contain bg-white/30"
+                                            className="w-full h-auto block"
                                         />
+                                        <StaticOverlay />
                                     </div>
                                 );
                             })}
@@ -218,12 +240,15 @@ export default async function ProjectDetailPage({
 
                     {/* Full-width challenge image */}
                     {challengesFullImage && (
-                        <div className="bg-background flex items-center justify-center py-16 px-9 border-t border-white/10">
-                            <img
-                                src={urlFor(challengesFullImage)?.width(1600).height(900).url() ?? undefined}
-                                alt={challengesFullImage.alt || `${project.title} desktop mockup`}
-                                className="max-h-105 w-auto object-contain bg-white/30"
-                            />
+                        <div className="px-9 py-8">
+                            <div className="relative overflow-hidden">
+                                <img
+                                    src={urlFor(challengesFullImage)?.width(2400).quality(85).auto("format").url()}
+                                    alt={challengesFullImage.alt || `${project.title} desktop mockup`}
+                                    className="w-full h-auto block"
+                                />
+                                <StaticOverlay />
+                            </div>
                         </div>
                     )}
 
@@ -269,14 +294,17 @@ export default async function ProjectDetailPage({
                         </div>
                     )}
 
-                    {/* Final result image, full-width, light bg */}
+                    {/* Final result image, full width, no boxing */}
                     {finalImageUrl && (
-                        <div className="flex items-center justify-center py-16 px-9">
-                            <img
-                                src={finalImageUrl}
-                                alt="Final result mockup"
-                                className="max-h-120 w-auto object-contain bg-white/30"
-                            />
+                        <div className="px-9 py-8">
+                            <div className="relative overflow-hidden">
+                                <img
+                                    src={finalImageUrl}
+                                    alt="Final result mockup"
+                                    className="w-full h-auto block"
+                                />
+                                <StaticOverlay />
+                            </div>
                         </div>
                     )}
 
@@ -284,7 +312,7 @@ export default async function ProjectDetailPage({
                     {/*
                 Two-column layout: description left (4 cols), project list right (8 cols).
                 Each list item is year + project name, separated by bottom borders.
-                Hover lifts the title to white.
+                Hover reveals the project thumbnail behind the row plus an arrow badge.
             */}
                     {moreProjects.length > 0 && (
                         <div className="px-9 pt-24 pb-20">
@@ -306,21 +334,43 @@ export default async function ProjectDetailPage({
 
                                 {/* Right: project list */}
                                 <div className="col-span-12 md:col-span-8 flex flex-col">
-                                    {moreProjects.map((item) => (
-                                        <Link
-                                            key={item._id}
-                                            href={`/projects/${item.slug.current}`}
-                                            className="group grid grid-cols-12 items-center py-5 border-b border-white/10 hover:border-white/30 transition-colors"
-                                        >
-                                            {/* Year */}
-                                            <span className="col-span-2 text-grey text-sm">{item.year}</span>
+                                    {moreProjects.map((item) => {
+                                        const thumbUrl = urlFor(item.image)?.width(800).quality(70).auto("format").url();
+                                        return (
+                                            <Link
+                                                key={item._id}
+                                                href={`/projects/${item.slug.current}`}
+                                                className="group relative grid grid-cols-12 items-center py-5 px-4 border-b border-white/10 transition-colors overflow-hidden"
+                                            >
+                                                {/* Thumbnail reveal on hover */}
+                                                {thumbUrl && (
+                                                    <div
+                                                        className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                                        style={{
+                                                            backgroundImage: `linear-gradient(90deg, rgba(10,10,10,0.85), rgba(10,10,10,0.55)), url(${thumbUrl})`,
+                                                        }}
+                                                    />
+                                                )}
 
-                                            {/* Project name */}
-                                            <span className="col-span-10 text-white font-semibold text-xl group-hover:text-primary transition-colors">
-                                                {item.title}
-                                            </span>
-                                        </Link>
-                                    ))}
+                                                {/* Year */}
+                                                <span className="relative col-span-2 text-grey text-sm">{item.year}</span>
+
+                                                {/* Project name */}
+                                                <span className="relative col-span-9 text-white font-semibold text-xl transition-colors">
+                                                    {item.title}
+                                                </span>
+
+                                                {/* Arrow badge, appears on hover */}
+                                                <span className="relative col-span-1 flex justify-end">
+                                                    <span className="w-9 h-9 rounded-full bg-primary flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
+                                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                            </Link>
+                                        );
+                                    })}
                                     {/* Closing border */}
                                     <div className="border-b border-white/10" />
                                 </div>

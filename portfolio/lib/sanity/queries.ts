@@ -21,7 +21,7 @@ export const PROJECTS_QUERY = `*[
   challenges,
   results,
   images,
-  video,
+  video{ asset-> { url } },
   svgAsset
 }`
 
@@ -47,7 +47,7 @@ export const FEATURED_PROJECTS_QUERY = `*[
   challenges,
   results,
   images,
-  video,
+  video{ asset-> { url } },
   svgAsset
 }`
 
@@ -71,7 +71,7 @@ export const PROJECT_QUERY = `*[
   challenges,
   results,
   images,
-  video,
+  video{ asset-> { url } },
   svgAsset
 }`
 
@@ -107,7 +107,7 @@ export type Project = SanityDocument & {
     stats: { label: string; value: string }[]
   }
   images?: { asset: { _ref: string }; alt?: string }[]
-  video?: { asset: { _ref: string } }
+  video?: { asset: { url: string } }
   svgAsset?: { asset: { _ref: string } }
 }
 
